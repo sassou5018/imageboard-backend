@@ -32,11 +32,7 @@ public class PostsService {
     public Boolean verifyImageSrc(String url1) {
         try {
             Image image = ImageIO.read(new URL(url1));
-            if (image != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return image != null;
         } catch (Exception e){
             return false;
         }
