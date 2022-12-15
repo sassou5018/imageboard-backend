@@ -36,4 +36,4 @@ build/
 .properties
 application.properties
 *.properties
-src/main/resources/application.properties
+/src/main/resources/application.properties
