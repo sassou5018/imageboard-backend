@@ -3,12 +3,10 @@ package com.imageboard.imageboard.posts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -33,5 +31,20 @@ public class PostsController {
     ){
         Pageable pageable = PageRequest.of(page,size);
         return postsService.getAllPaginated(pageable);
+    }
+
+    @PostMapping
+    public Posts addNewPost(@RequestBody Posts post){
+        return postsService.addNewPost(post);
+    }
+
+    @GetMapping(path = "{id}")
+    public Optional<Posts> getPostById(@PathVariable Long id){
+        return postsService.getPostById(id);
+    }
+
+    @GetMapping(path="/count")
+    public Long getCount(){
+        return postsService.getPostsCount();
     }
 }
