@@ -22,7 +22,6 @@ public class Posts {
     private String caption;
     private String imgSrc;
     private LocalDate postDate;
-    private LocalDate updateDate;
 
     public Posts() {
     }
@@ -33,7 +32,6 @@ public class Posts {
         this.caption = caption;
         this.imgSrc = imgSrc;
         this.postDate = LocalDate.now();
-        this.updateDate = null;
     }
 
     public Posts(String title, String caption, String imgSrc) {
@@ -42,7 +40,16 @@ public class Posts {
         this.imgSrc = imgSrc;
         this.author = "Anonym";
         this.postDate = LocalDate.now();
-        this.updateDate = null;
+    }
+
+    @PrePersist
+    public void preInsert(){
+        if(this.postDate == null){
+            this.postDate = LocalDate.now();
+        }
+        if(this.author == null){
+            this.author = "Anonym";
+        }
     }
 
 
@@ -95,13 +102,6 @@ public class Posts {
         this.postDate = postDate;
     }
 
-    public LocalDate getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(LocalDate updateDate) {
-        this.updateDate = updateDate;
-    }
 
     @Override
     public String toString() {
@@ -112,7 +112,6 @@ public class Posts {
                 ", caption='" + caption + '\'' +
                 ", imgSrc='" + imgSrc + '\'' +
                 ", postDate=" + postDate +
-                ", updateDate=" + updateDate +
                 '}';
     }
 }
